@@ -4,7 +4,7 @@ import google.generativeai as genai
 import datetime
 import time
 
-# Configuración de Gemini
+
 genai.configure(api_key="AIzaSyB-4O4lWJJp8Kv43w3On59ZTYveiGXSFpU")
 model = genai.GenerativeModel("models/gemini-2.0-flash")
 
@@ -33,6 +33,7 @@ def generar_mensaje(nombre, deuda, deuda_vencida, estado_servicio, tono, fecha_v
     - El pago realizado después de la fecha de vencimiento generará mora.
     - La falta de pago pasado el mes en curso puede provocar la suspensión del servicio.
     - Si el cliente ya realizó el pago, debe enviar el comprobante cuanto antes para corroborar que fue procesado.
+    - Si quiere transferir el monto adeudado debera hacerlo al alias "sistemaslatinos" a nombre de Light Speed SA.
 
     Genera un mensaje respetuoso pero adaptado al tono indicado.
     Firma el mensaje con: "Atentamente, Sistemas Latinos".
@@ -76,7 +77,7 @@ def main():
             )
             mensajes.append(mensaje)
 
-            # Rate limit más largo (ej. 8 segundos)
+            # Rate limit  (para evitar problemas con la API)
             time.sleep(8)
 
         df["Mensaje Cobranza"] = mensajes
